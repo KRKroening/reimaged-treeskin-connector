@@ -32,7 +32,7 @@ if(isset($_GET['comp']))
 }
 
 if($provName != "" && $provPPhone != "" && $provType != ""){
-    $toIns = '{"name" : "'.$provName.'", "type":"'.$provPPhone.'","pPhone":"'.$provComp.'","sPhone":"'.$provType.'","comp":"'.$provSPhone.'"}';
+    $toIns = '{"name" : "'.$provName.'", "type":"'.$provType.'","pPhone":"'.$provPPhone.'","sPhone":"'.$provSPhone.'","comp":"'.$provComp.'"}';
     echo insertNewProvider($toIns);
 } else {
     errorNo();

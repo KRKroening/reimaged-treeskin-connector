@@ -28,4 +28,7 @@ function DeleteProviderByNameFromMongo($subName){
     return json_encode($result);
 }
 
+function updateProviderByMongo($name, $ins){
+    $result = ExecuteUpdate("Treeskin_db.Providers",$name, $ins);
+}
 ?>
