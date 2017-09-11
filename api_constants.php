@@ -54,6 +54,31 @@ function ExecuteSelectFilter($dbCol,$typeName){
     return $return;
 }
 
+function ExecuteSelectWithFilter($dbCol, $filter){
+    $ConString = 'mongodb://ts_admin:ts_pass@ts-01-shard-00-00-penqj.mongodb.net:27017,ts-01-shard-00-01-penqj.mongodb.net:27017,ts-01-shard-00-02-penqj.mongodb.net:27017/test?ssl=true&replicaSet=TS-01-shard-0&authSource=admin';
+
+    $m = new \MongoDB\Driver\Manager($ConString);
+    // var_dump($filter);
+    // Create query object with all options:
+    $query = new \MongoDB\Driver\Query(
+            $filter // query (empty: select all)
+    );
+
+    // Execute query and obtain cursor:
+    $cursor = $m->executeQuery( $dbCol, $query );
+
+    $it = new \IteratorIterator($cursor);
+    $it->rewind(); // Very important
+
+    $return = array();
+    while($doc = $it->current()) {
+        // var_dump($doc);
+        array_push($return,$doc);
+        $it->next();
+    }
+    return $return;
+}
+
 function ExecuteInsert($dbCol,$data){
     $ConString = 'mongodb://ts_admin:ts_pass@ts-01-shard-00-00-penqj.mongodb.net:27017,ts-01-shard-00-01-penqj.mongodb.net:27017,ts-01-shard-00-02-penqj.mongodb.net:27017/test?ssl=true&replicaSet=TS-01-shard-0&authSource=admin';
     $m = new \MongoDB\Driver\Manager($ConString);
