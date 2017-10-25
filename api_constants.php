@@ -134,25 +134,30 @@ function ExecuteUpdate($dbCol,$name,$data){
     $ConString = 'mongodb://ts_admin:ts_pass@ts-01-shard-00-00-penqj.mongodb.net:27017,ts-01-shard-00-01-penqj.mongodb.net:27017,ts-01-shard-00-02-penqj.mongodb.net:27017/test?ssl=true&replicaSet=TS-01-shard-0&authSource=admin';
 
     $m = new \MongoDB\Driver\Manager($ConString);
-    $name = array( "name" =>$name);
+    // $name = array( "name" =>$name);
     // Create query object with all options:
     // $query = new \MongoDB\Driver\Query(
     //         $name // query (empty: select all)
     // );
 
     // Execute query and obtain cursor:
+    var_dump($name);
+    
     $insRec = new MongoDB\Driver\BulkWrite;
     $insRec->update($name,['$set' =>json_decode($data)], ['multi' => false, 'upsert' => false]);
 
     $writeConcern = new MongoDB\Driver\WriteConcern(MongoDB\Driver\WriteConcern::MAJORITY, 1000);
          
     $result = $m->executeBulkWrite($dbCol, $insRec, $writeConcern);
+    // var_dump($result);
 
-        if($result->getModifiedCount()){
-            $flag = 3;
-        }else{
-            $flag = 2;
-          }
+    if($result->getModifiedCount()){
+        $flag = 3;
+        echo"success";
+    }else{
+        $flag = 2;
+        echo "Failure";
+    }
     return $result;
 }
 

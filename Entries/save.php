@@ -13,6 +13,7 @@ if($file["subject"] != ""){
 
 function insertNewEntry($file)
 {
+    $file["date"] = (int)$file["Date"];
     return insertNewEntryToMongo($file);
 }
 

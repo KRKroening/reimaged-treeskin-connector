@@ -15,11 +15,11 @@ if(isset($_GET['name']))
 }
 if(isset($_GET['age']))
 {
-    $subGender = $_GET['age'];
+    $subAge = $_GET['age'];
 }
 if(isset($_GET['gender']))
 {
-    $subAge = $_GET['gender'];
+    $subGender = $_GET['gender'];
 }
 
 if(isset($_GET['colour']))

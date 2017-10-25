@@ -27,7 +27,8 @@ if(isset($_GET['type'])){
 if(isset($_GET['subject'])){
     $subject = $_GET['subject'];
 }
-
+ echo $toDate, $fromDate;
+ echo "________";
 if($subject != ""){
     $query = buildQueryString($toDate,$fromDate,$provider,$type,$subject);
     echo GetEntryByFilterFromMongo($query);

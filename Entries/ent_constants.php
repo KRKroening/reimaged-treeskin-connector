@@ -36,7 +36,8 @@ function DeleteEntryByDateFromMongo($subName){
     return json_encode($result);
 }
 
-function updateEntryFromMongo($name, $ins){
-    $result = ExecuteUpdate("Treeskin_db.Entries",$name, $ins);
+function updateEntryFromMongo($name,$date, $ins){
+    $result = ExecuteUpdate("Treeskin_db.Entries",array( "subject" =>$name,"date"=>$date), $ins);
+    return json_encode($result);
 }
 ?>

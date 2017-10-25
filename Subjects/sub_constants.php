@@ -7,7 +7,6 @@ $dbCol = "Treeskin_db.Subjects";
 function insertNewSubjectToMongo($data){
     // echo $data;
     $dataJSON = json_decode($data);
-    // var_dump($dataJSON);
     $result = ExecuteInsert("Treeskin_db.Subjects",$data);
     return json_encode($result);
 }
