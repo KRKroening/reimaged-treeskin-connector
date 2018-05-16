@@ -6,7 +6,8 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
-    "mongodb": "^2.2.31"
+    "mongodb": "^2.2.31",
+    "mongoose": "^5.1.1"
   },
   "devDependencies": {},
   "scripts": {
@@ -14,5 +15,5 @@
   },
   "author": "",
   "license": "ISC",
-  "start" : "nodemon server.js"
+  "start": "nodemon server.js"
 }
