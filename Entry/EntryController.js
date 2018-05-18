@@ -25,7 +25,7 @@ router.post('/', function (req, res) {
 
 // RETURNS THE Entrys IN THE DATABASE BY FILTER
 router.get('/', function (req, res) {
-    // console.log(req.query)
+    console.log(req.query)
     var findBy = {
     }
 
@@ -34,17 +34,18 @@ router.get('/', function (req, res) {
     req.query.fromDate != null? req.query.fromDate = parseInt(req.query.fromDate)*1000 : false
 
     //build the filter object
-    req.query.provider != null? findBy["provider"] = req.query.provider: false;
+    req.query.provider != null && req.query.provider != ''? findBy["provider"] = req.query.provider: false;
     req.query.subject != null? findBy["subject"] = req.query.subject : false;
     req.query.type != null ? findBy["type"] = req.query.type : false;
+    req.query.contains != null ? findBy["entry"] = { $regex: req.query.contains} : false
     req.query.toDate != null? req.query.fromDate != null? //If to and from are not empty 
             findBy["date"] = { $gte : req.query.fromDate, $lte : req.query.toDate }: // set both ranges
             findBy["date"] = { $lte : req.query.toDate } : // if from is empty, set only to
             req.query.fromDate != null? // if to is empty, check if from is empty
             findBy["date"] = { $gte : req.query.fromDate}: // if from is not empty, set from
             false // if from is also  empty, do nothing
-
-    // console.log(findBy)
+    console.log(typeof(req.query.provider))
+    console.log(findBy)
     Entry.find(findBy, function (err, Entrys) {
         if (err) return res.status(500).send("There was a problem finding the Entry.");
         if (!Entrys) return res.status(404).send("No user found.");
