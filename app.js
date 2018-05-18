@@ -12,9 +12,11 @@ app.use(function(req, res, next){
 var ProviderController = require('./Provider/providerController');
 var SubjectController = require('./Subject/subjectController');
 var TypeController = require('./Type/typeController')
+var EntryController = require('./Entry/entryController')
 
 app.use('/providers', ProviderController)
 app.use('/subjects', SubjectController)
 app.use('/types', TypeController)
+app.use('/entrys', EntryController)
 
 module.exports = app;
