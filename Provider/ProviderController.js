@@ -8,6 +8,7 @@ var Provider = require('./Provider');
 router.post('/', function (req, res) {
     // console.lo g(req.body)
     Provider.create({
+            id : req.body.id,
             name : req.body.name,
             type : req.body.type,
             pPhone : req.body.pPhone,
@@ -30,7 +31,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/:id', function (req, res) {
-    Provider.findById(req.params.id, function (err, providers) {
+    Provider.find({ "id" : req.params.id}, function (err, providers) {
         if (err) return res.status(500).send("There was a problem finding the provider.");
         if (!providers) return res.status(404).send("No user found.");
         res.status(200).send(providers);
@@ -38,14 +39,14 @@ router.get('/:id', function (req, res) {
 });
 
 router.delete('/:id', function (req, res) {
-    Provider.findByIdAndRemove(req.params.id, function (err, provider) {
+    Provider.findOneAndRemove({"id" : req.params.id}, function (err, provider) {
         if (err) return res.status(500).send("There was a problem deleting the provider.");
         res.status(200).send("Provider "+ provider.name +" was deleted.");
     });
 });
 
 router.put('/:id', function (req, res) {    
-    Provider.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, provider) {
+    Provider.findOneAndUpdate({"id":req.params.id}, req.body, {new: true}, function (err, provider) {
         if (err) return res.status(500).send("There was a problem updating the provider.");
         res.status(200).send(provider);
     });

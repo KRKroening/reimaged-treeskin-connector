@@ -10,14 +10,18 @@ app.use(function(req, res, next){
   next();
 });
 
+// How to add redis to this?
+
 var ProviderController = require('./Provider/providerController');
 var SubjectController = require('./Subject/subjectController');
 var TypeController = require('./Type/typeController')
-var EntryController = require('./Entry/entryController')
+var EntryController = require('./Entry/entryController');
+var AlertController = require('./Alert/alertController');
 
-app.use('/providers', ProviderController)
-app.use('/subjects', SubjectController)
+app.use('/provider', ProviderController)
+app.use('/subject', SubjectController)
 app.use('/types', TypeController)
-app.use('/entrys', EntryController)
+app.use('/entry', EntryController)
+app.use('/alert', AlertController)
 
 module.exports = app;

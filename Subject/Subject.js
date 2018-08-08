@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');  
 var SubjectSchema = new mongoose.Schema({  
+    id: {type: String, required: true},    
     name: {type : String, required : true },
-    age: {type : Number, required : true },
+    age: {type : Date, required : true },
     breed: {type : String, required : true },
     gender: {type : String, required : true },
     colour: {type : String, required : true } 

@@ -8,6 +8,7 @@ var Subject = require('./Subject');
 router.post('/', function (req, res) {
     // console.lo g(req.body)
     Subject.create({
+            id : req.body.id,
             name : req.body.name,
             age : req.body.age,
             breed : req.body.breed,
@@ -30,7 +31,7 @@ router.get('/', function (req, res) {
 });
 
 router.get('/:id', function (req, res) {
-    Subject.findById(req.params.id, function (err, Subjects) {
+    Subject.find({"id":req.params.id}, function (err, Subjects) {
         if (err) return res.status(500).send("There was a problem finding the Subject.");
         if (!Subjects) return res.status(404).send("No user found.");
         res.status(200).send(Subjects);
@@ -38,14 +39,14 @@ router.get('/:id', function (req, res) {
 });
 
 router.delete('/:id', function (req, res) {
-    Subject.findByIdAndRemove(req.params.id, function (err, Subject) {
+    Subject.findOneAndRemove({"id" : req.params.id}, function (err, Subject) {
         if (err) return res.status(500).send("There was a problem deleting the Subject.");
-        res.status(200).send("Subject "+ Subject.name +" was deleted.");
+        res.status(200).send("Subject was deleted.");
     });
 });
 
 router.put('/:id', function (req, res) {    
-    Subject.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, Subject) {
+    Subject.findOneAndUpdate({"id" : req.params.id}, req.body, {new: true}, function (err, Subject) {
         if (err) return res.status(500).send("There was a problem updating the Subject.");
         res.status(200).send(Subject);
     });

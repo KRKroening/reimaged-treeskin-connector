@@ -53,6 +53,10 @@ router.get('/', function (req, res) {
     });
 });
 
+router.post("/download", function(req, res){
+    //send to redis for service to pick up.
+})
+
 // Not used
 router.delete('/:id', function (req, res) {
     Entry.findByIdAndRemove(req.params.id, req.body, function (err, Entry) {
@@ -71,6 +75,7 @@ router.put('/:id', function (req, res) {
         res.status(200).send(Entry);
     });
 });
+
 
 module.exports = router;
 
