@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 router.use(bodyParser.urlencoded({ extended: true }));
 router.use(bodyParser.json());
 var Subject = require('./Subject');
+var User = require('../User/User');
+
 
 router.post('/', function (req, res) {
     // console.lo g(req.body)
@@ -17,7 +19,11 @@ router.post('/', function (req, res) {
         }, 
         function (err, Subject) {
             if (err) return res.status(500).send(err + "There was a problem adding the information to the database.");
-            res.status(200).send(Subject);
+            // Add to user document
+            User.findOneAndUpdate({id : req.body.user}, {$push : { subjects : req.body.id}}, function(err, user){
+                if (err) return res.status(500).send(err + "There was a problem adding the information to the database.");
+                res.status(200).send("ok");
+            })
         });
 });
 
@@ -30,10 +36,18 @@ router.get('/', function (req, res) {
     });
 });
 
-router.get('/:id', function (req, res) {
+router.get('/one/:id', function (req, res) {
     Subject.find({"id":req.params.id}, function (err, Subjects) {
         if (err) return res.status(500).send("There was a problem finding the Subject.");
         if (!Subjects) return res.status(404).send("No user found.");
+        res.status(200).send(Subjects);
+    });
+});
+
+router.get('/user/:subjectlist', function (req, res) {
+    Subject.find({id: {$in: req.params.subjectlist.split(",")}}, function (err, Subjects) {
+        if (err) return res.status(500).send("There was a problem finding the Subject.");
+        if (!Subjects) return res.status(404).send("No subjects found.");
         res.status(200).send(Subjects);
     });
 });

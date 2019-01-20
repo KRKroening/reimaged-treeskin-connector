@@ -1,7 +1,5 @@
-// import { pseudoRandomBytes } from "crypto";
+var generateIds = function(prefix){
+    return prefix.toUpperCase() + Math.random().toString(36).substring(7);
+}
 
-// var generateIds = function(prefix){
-//     return prefix.toUpper() + new pseudoRandomBytes(12);
-// }
-
-// module.exports = generateIds
+module.exports = generateIds

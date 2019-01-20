@@ -6,14 +6,15 @@ router.use(bodyParser.json());
 var Provider = require('./Provider');
 
 router.post('/', function (req, res) {
-    // console.lo g(req.body)
+    console.log(req.body)
     Provider.create({
             id : req.body.id,
             name : req.body.name,
             type : req.body.type,
             pPhone : req.body.pPhone,
             sPhone: req.body.sPhone,
-            comp: req.body.comp
+            comp: req.body.comp,
+            user_id: [req.body.user_id]
         }, 
         function (err, provider) {
             if (err) return res.status(500).send(err + "There was a problem adding the information to the database.");
@@ -32,6 +33,14 @@ router.get('/', function (req, res) {
 
 router.get('/:id', function (req, res) {
     Provider.find({ "id" : req.params.id}, function (err, providers) {
+        if (err) return res.status(500).send("There was a problem finding the provider.");
+        if (!providers) return res.status(404).send("No user found.");
+        res.status(200).send(providers);
+    });
+});
+
+router.get('/user/:id', function (req, res) {
+    Provider.find({ "user_id" : req.params.id}, function (err, providers) {
         if (err) return res.status(500).send("There was a problem finding the provider.");
         if (!providers) return res.status(404).send("No user found.");
         res.status(200).send(providers);

@@ -5,7 +5,8 @@ var ProviderSchema = new mongoose.Schema({
     type: {type : String, required : true },
     pPhone: {type : String, required : true },
     sPhone: {type : String, required : false },
-    comp: {type : String, required : true } 
+    comp: {type : String, required : true },
+    user_id : { type: Array, required: true}
 });
 mongoose.model('Provider', ProviderSchema, 'Providers'); //Needed to add last parameter
 module.exports = mongoose.model('Provider');
